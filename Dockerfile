@@ -1,4 +1,4 @@
-FROM harbor.quickcan.com/kkmh-prod/python:3.6.9-alpine3.10
+FROM python:3.6.9-alpine3.10
 
 WORKDIR /app
 COPY . .
