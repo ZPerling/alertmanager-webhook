@@ -1,0 +1,4 @@
+Flask==1.1.1
+DingtalkChatbot==1.5.0
+PyYAML==5.3
+uwsgi

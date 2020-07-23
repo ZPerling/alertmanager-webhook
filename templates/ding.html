@@ -1,0 +1,47 @@
+### [{{ status | upper }}:{{ alerts | length }}] **[Alerts]({{ externalURL }}/#/alerts?receiver={{ receiver }})**
+
+**Alerts Firing**
+
+---
+
+{% for alert in alerts %}
+
+{% if alert.status == 'firing' and alert.labels.severity == 'warning' %}
+<font color=#E6A23C size=3><b>{{ alert.status | upper }}</b></font>
+{% elif alert.status == 'firing' and alert.labels.severity == 'critical' %}
+<font color=#F56C6C size=3><b>{{ alert.status | upper }}</b></font>
+{% elif alert.status == 'firing' %}
+<font color=#909399 size=3><b>{{ alert.status | upper }}</b></font>
+{% elif alert.status == 'resolved' %}
+<font color=#67C23A size=3><b>{{ alert.status | upper }}</b></font>
+{% endif %}
+
+### [{{ alert.labels.severity | upper }}] {{ alert.labels.alertname }}
+
+**Label:**
+    {% for label_key, label_value in alert.labels.items() %}
+        {%- if label_key != "alert" %}
+> - {{ label_key }}: {{ label_value }}
+        {%- endif %}
+    {% endfor %}
+
+**Annotations:**
+    {% for annotations_key, annotations_value in alert.annotations.items() %}
+        {%- if annotations_key == "runbook_url" %}
+> - runbook: **[点击查看]({{ annotations_value }})**
+        {% else %}
+> - {{ annotations_key }}: {{ annotations_value }}
+        {%- endif %}
+    {% endfor %}
+
+⏰:
+> - StartsAt: {{ alert.startsAt | format_time }}
+
+{% if alert.status == "resolved" %}
+> - EndsAt: {{ alert.endsAt | format_time }}
+{% endif %}
+
+**Graph:** [点击查看]({{ alert.generatorURL }})
+
+---
+{% endfor %}

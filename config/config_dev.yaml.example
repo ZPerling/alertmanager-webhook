@@ -1,0 +1,7 @@
+robot:
+  somerobot:
+    webhook: https://oapi.dingtalk.com/robot/send?access_token=0fb9f37a807cf3c291b33f2d1597be3c109c2f9170f7fda180f13116501asae
+    secret: SECbc2e19f4f1ff6dd298b23901211d2c3b6b147e3ae6887ed421997117ffd78906
+
+log:
+  path: /tmp/run.log
